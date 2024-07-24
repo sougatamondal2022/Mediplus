@@ -1,0 +1,179 @@
+/* Doctor Styles */
+.doctor-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 0 auto;
+	max-width: 1200px;
+}
+
+.doctor-card {
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	flex-basis: calc(33.33% - 20px);
+	margin-bottom: 20px;
+	text-align: center;
+	transition: transform 0.3s ease;
+}
+
+.doctor-card:hover {
+	transform: translateY(-10px);
+}
+
+.doctor-image {
+	border-radius: 50%;
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	margin: 20px auto;
+}
+
+.doctor-name {
+	margin: 0 0 10px;
+}
+
+.appointment-button {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	text-transform: uppercase;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.appointment-button:hover {
+	background-color: #3e8e41;
+}
+
+/* Compass Styles */
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #ecf0f1;
+	font-family: helvetica, arial, sans-serif;
+	font-size: 16px;
+	padding-top: 200px;
+	transition: padding-top 0.5s ease;
+}
+
+header {
+	width: 100%;
+	height: 150px;
+	background-color: #3498db;
+	text-align: center;
+	position: relative;
+	position: fixed;
+	top: 0;
+	overflow: hidden;
+	transition: all 0.5s ease;
+
+}
+
+header h1 {
+	font-size: 42px;
+	color: #fff;
+	line-height: 230px;
+	text-transform: uppercase;
+	font-weight: 100;
+	transition: all 0.3s ease;
+}
+
+header nav {
+	position: absolute;
+	bottom: 0;
+	height: 60px;
+	line-height: 60px;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+header nav a {
+	color: #fff;
+	display: inline-block;
+	padding: 10px 15px;
+	line-height: 1;
+	text-decoration: none;
+	border-radius: 2px;
+}
+
+header nav a:hover {
+	box-shadow: 0 0 0 1px #fff;
+}
+
+h2 {
+	font-size: 20px;
+	text-transform: uppercase;
+	font-weight: 100;
+	line-height: 3;
+	color: #2c3e50;
+}
+
+p {
+	margin-bottom: 2rem;
+	line-height: 2;
+	color: #7f8c8d;
+}
+
+.wrapper {
+	width: 800px;
+	margin: 0 auto;
+}
+
+section {
+	padding: 10px;
+	margin-bottom: 40px;
+	background-color: #fff;
+	border-radius: 4px;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+body.sticky-header {
+	padding-top: 100px;
+}
+
+body.sticky-header header {
+	height: 100px;
+	background-color: rgba(52, 152, 219, 0.9);
+}
+
+body.sticky-header header h1 {
+	transform: scale(0);
+}
+
+.button {
+	width: 200px;
+	height: 50px;
+	font-size: 18px;
+	border-radius: 5px;
+	border: none;
+	background-color: #4CAF50;
+	color: white;
+	cursor: pointer;
+	margin-right: 20px;
+}
+
+.button:hover {
+	background-color: #45a049;
+}
+
+.container {
+	text-align: center;
+
+}
+
+.button-wrapper {
+	display: flex;
+	justify-content: space-between;
+	/* Adjust as needed */
+}
+
+.button-container {
+	margin-right: 300px;
+	/* Adjust as needed */
+	margin-left: 300px;
+}

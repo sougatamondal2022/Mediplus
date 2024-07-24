@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Style for the form elements */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        label {
+            white-space: nowrap;
+            margin-right: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input {
+            width: 200px; /* Set width as needed */
+        }
+    </style>
+</head>
+<body>
+    <h1>Doctor</h1>
+    <form method="post" action="doctor.php">
+        <div class="sno">
+        <label for="sno">sno:</label> <input type="text" name="sno" id="sno">
+        </div>
+        <div class="Doctor_name">
+            <label for="Doctor_name">Name:</label> <input type="text" id="Doctor_name" name="Doctor_name">
+        </div>
+        <div class="Region_name">
+            <label for="Region_name">Region:</label> <input type="text" id="Region_name" name="Region_name">
+        </div>
+        <div class="phone">
+            <label for="phone">Phone:</label> <input type="text" id="phone" name="phone">
+        </div>
+        <div class="specialization">
+            <label for="specialization">Specialization:</label> <input type="text" id="specialization" name="specialization">
+        </div>
+        <button>sumbit</button>
+    </form>
+    
+</body>
+</html>

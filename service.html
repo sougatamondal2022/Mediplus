@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+
+<head>
+    <title>Share Location</title>
+    <style>
+        /* Set the size of the map */
+        #map {
+            height: 400px;
+            width: 50%;
+            margin: 0 auto;
+        }
+    </style>
+    <script>
+        var map;
+        var directionsService;
+        var directionsRenderer;
+        var carMarkers = [];
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 37.7749, lng: -122.4194 },
+                zoom: 12
+            });
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            map.setCenter({ lat: latitude, lng: longitude });
+            var marker = new google.maps.Marker({
+                position: { lat: latitude, lng: longitude },
+                map: map,
+                title: 'Your Location'
+            });
+        }
+
+        function findNearestCar() {
+            // Your current location (for demonstration purposes)
+            var myLocation = { latitude: map.center.lat(), longitude: map.center.lng() };
+
+            // Hardcoded car locations (in a real application, these would be fetched from a database)
+            var carLocations = [
+                { id: 1, latitude: 22.568383, longitude: 88.37241799999993 },
+                { id: 2, latitude: 37.780, longitude: -122.415 },
+                { id: 3, latitude: 37.785, longitude: -122.410 },
+                { id: 4, latitude: 22.6437, longitude: 88.3777 }
+            ];
+
+            // Remove existing car markers and directions
+            for (var i = 0; i < carMarkers.length; i++) {
+                carMarkers[i].setMap(null);
+            }
+            carMarkers = [];
+            directionsRenderer.setDirections({ routes: [] });
+
+            // Add car markers
+            for (var i = 0; i < carLocations.length; i++) {
+                var car = carLocations[i];
+                var marker = new google.maps.Marker({
+                    position: { lat: car.latitude, lng: car.longitude },
+                    map: map,
+                    title: 'Car ID: ' + car.id
+                });
+                carMarkers.push(marker);
+            }
+
+            // Calculate and display directions to the nearest car
+            var nearestCar = findNearestCarLocation(myLocation, carLocations);
+            if (nearestCar) {
+                var request = {
+                    origin: myLocation,
+                    destination: nearestCar,
+                    travelMode: 'DRIVING'
+                };
+                directionsService.route(request, function (result, status) {
+                    if (status == 'OK') {
+                        directionsRenderer.setDirections(result);
+                    }
+                });
+            }
+        }
+
+        function findNearestCarLocation(myLocation, carLocations) {
+            var nearestCar = null;
+            var minDistance = Number.MAX_VALUE;
+            for (var i = 0; i < carLocations.length; i++) {
+                var car = carLocations[i];
+                var distance = calculateDistance(myLocation.latitude, myLocation.longitude, car.latitude, car.longitude);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nearestCar = car;
+                }
+            }
+            return nearestCar ? { lat: nearestCar.latitude, lng: nearestCar.longitude } : null;
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad(lat2 - lat1);
+            var dLon = deg2rad(lon2 - lon1);
+            var a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var d = R * c; // Distance in km
+            return d;
+        }
+
+        function deg2rad(deg) {
+            return deg * (Math.PI / 180)
+        }
+    </script>
+    <!-- Load the Google Maps JavaScript API asynchronously with the Directions API library -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-tRhyFDpodABdBKKAKtLekmbyvwD0lYA&libraries=places,directions&callback=initMap"></script>
+</head>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Doctor List</title>
+    <link rel="stylesheet" href="doc_card.css">
+</head>
+<header>
+        <h2><img src="img/logo.png" alt="">at your service!</h2>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="">About</a>
+        <a href="">Gallery</a>
+        <a href="">Contact</a>
+    </nav>
+</header>
+
+<body>
+
+    <div id="map"></div>
+
+    <div class="container">
+        <h1>Online Ambulance</h1>
+        
+        <div class="button-container">
+            <button type="submit" class="button" name="downloadReceipt" id="convert-btn" onclick="getLocation()">Share
+                location</button>
+            <button class="button" onclick="findNearestCar()">Find nearest car</button>
+        </div>
+    </div>
+
+</body>
+<script src="script.js"></script>
+
+</html>
